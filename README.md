@@ -90,41 +90,12 @@ Configuration
 
 Note that if you do not specify INIT_SGA_SIZE and INIT_PGA_SIZE then Oracle will determine the memory to allocate based on the number of CPUs, available memory in your machine etc, and for desktop environments this could be from about 2000MB to 5000MB. If you want control over this, set the values.
 
-Connecting to Oracle
---------------------
-
-Once the container has been started you can connect to it like any other database. Note we are using `Service Name` and not the SID (since PDB uses Service Name).
-
-For example, SQL Developer:
-```
-Hostname: localhost
-Port: 1521
-Service Name: <your service name>
-Username: sys
-Password: <your password>
-Role: AS SYSDBA
-
-```
-
-Changing the password
----------------------
-
-Note: If you did not set the `ORACLE_PWD` parameter, check the docker run output for the password.
-
-The password for the SYS account can be changed via the `docker exec` command. Note, the container has to be running:
-
-First run `docker ps` to get the container ID. Then run:
-`docker exec <container id> ./setPassword.sh <new password>`
-
-
 
 Connecting to the container as root
 -----------------------------------
 
 
-Open a terminal.
-
-Find your oracle docker container ID, using:
+Open a terminal and find your oracle docker container ID, using:
 ```
 docker ps
 ```
@@ -136,37 +107,47 @@ docker exec -u 0 -it 22d7f94dfa3c /bin/bash
 
 You are now connected to the container with privileges.
 
+Resolving compatibilities of the PASSWORD_VERSIONS parameter
+------------------------------------------------------------
 
-Now you need to install vi:
+We need to make the PASSWORD_VERSIONS parameter compatible with all versions.
+
+First thing first, you need to install vi:
 ```
 yum install vi
 ```
-We need to make the PASSWORD_VERSIONS parameter compatible with all versions, so run the following to edit sqlnet.ora:
+
+Run the following to edit sqlnet.ora:
 ```
 vi $ORACLE_HOME/network/admin/sqlnet.ora
 ```
 
-add the following line (press "i" to enter the editation mode):
+add the following line to the opened file (press "i" to enter the editation mode):
 ```
 SQLNET.ALLOWED_LOGON_VERSION_SERVER=10
 ```
 save and exit (press "esc", and then write ":wq")
 
 
+Connecting to the database as sys
+---------------------------------
 
 To connect as admin (sysdba) to the oracle database, run:
 ```
 sqlplus sys/password@orcl as sysdba
 ```
 
-If successful, run the following to create a user and grant privileges:
+Creating a new user with privileges
+-----------------------------------
+
+If the connection is successful, run the following to create a user and grant privileges:
 ```
 CREATE USER SIB2000 IDENTIFIED BY password;
 GRANT ALL PRIVILEGES TO SIB2000;
 ```
 
 
-Now open dbeaver and try to connect to the oracle database using the followings:
+Now open a client (such as dbeaver) and try to connect to the oracle database using the followings:
 ```
 Host: localhost
 Port: 1521
