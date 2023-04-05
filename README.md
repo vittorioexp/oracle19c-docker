@@ -27,6 +27,7 @@ Open a Unix based terminal (Git Bash, WSL Ubuntu, ...) and run the following:
 cd OracleDatabase/SingleInstance/dockerfiles
 ./buildContainerImage.sh -v 19.3.0 -e
 ````
+This will take about 10-15 minutes.
 
 If the build fails saying you are out of space, check how much space you have available on your disk. If it looks ok, prune old Docker images via: 
 `yes | docker image prune > /dev/null`
@@ -51,7 +52,7 @@ docker run \
 oracle/database:19.3.0-ee
 ```
 
-On first run, the database will be created and setup for you. This will take about 10-15 minutes. 
+On first run, the database will be created and setup for you.  
 Open Docker Dashboard and watch the progress. Then you can connect.
 
 Optionally, you can use the following run commmand to avoid getting "No disk space" issues as you gradually insert more and more data into your database.
