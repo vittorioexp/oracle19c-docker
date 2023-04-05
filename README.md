@@ -5,21 +5,23 @@ Oracle has introduced the concept of container databases (CDB) and pluggable dat
 
 Note that Oracle is shifting away from an SID and using service names instead. PDB use service names, CDB use SIDs. However, usernames for CDB must start with C##, ie C##STEVE. So to make things simple, we are focusing on just using the single PDB.
 
-I used to maintain a standalone repository for building this image. It was originally based on the official images, like my Oracle 12c one here: https://github.com/steveswinsburg/oracle12c-docker
-
 Oracle have since improved their docker images and I have worked with Oracle on making the the memory configurable (see https://github.com/oracle/docker-images/issues/1575), so all we need now are simplified instructions.
 
 Before you begin
 ----------------
 
-1. Clone `https://github.com/oracle/docker-images`.
-1. Download the Oracle Database 19c binary `LINUX.X64_193000_db_home.zip` from http://www.oracle.com/technetwork/database/enterprise-edition/downloads/index.html
-1. Put the zip in the `OracleDatabase/SingleInstance/dockerfiles/19.3.0` directory. **Do not unzip it.**
-1. In Docker Desktop, ensure you have a large enough amount of memory allocated. These instructions will set the total memory to 4000MB, so make sure Docker has a value higher than that.
+Clone `https://github.com/oracle/docker-images`.
 
-Building
---------
+Download the Oracle Database 19c binary `LINUX.X64_193000_db_home.zip` from http://www.oracle.com/technetwork/database/enterprise-edition/downloads/index.html
 
+Put the zip (and DO NOT unzip it) in the `OracleDatabase/SingleInstance/dockerfiles/19.3.0` directory.
+
+In Docker Desktop, ensure you have a large enough amount of memory allocated. These instructions will set the total memory to 4000MB, so make sure Docker has a value higher than that.
+
+Building the docker container
+-----------------------------
+
+Open a Unix based terminal (Git Bash, WSL Ubuntu, ...) and run the following:
 
 ````
 cd OracleDatabase/SingleInstance/dockerfiles
@@ -29,8 +31,9 @@ cd OracleDatabase/SingleInstance/dockerfiles
 If the build fails saying you are out of space, check how much space you have available on your disk. If it looks ok, prune old Docker images via: 
 `yes | docker image prune > /dev/null`
 
-Running
--------
+
+Running the docker container
+-----------------------------
 
 To use the sensible defaults:
 
@@ -48,7 +51,8 @@ docker run \
 oracle/database:19.3.0-ee
 ```
 
-On first run, the database will be created and setup for you. This will take about 10-15 minutes. Open Docker Dashboard and watch the progress. Then you can connect.
+On first run, the database will be created and setup for you. This will take about 10-15 minutes. 
+Open Docker Dashboard and watch the progress. Then you can connect.
 
 Optionally, you can use the following run commmand to avoid getting "No disk space" issues as you gradually insert more and more data into your database.
 
@@ -65,8 +69,7 @@ docker run \
 oracle/database:19.3.0-ee
 ```
 
-Configuration
--------------
+All available options follows:
 
 ```
    --name:        The name of the container (default: auto generated)
