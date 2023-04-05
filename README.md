@@ -133,6 +133,41 @@ SQLNET.ALLOWED_LOGON_VERSION_SERVER=10
 save and exit (press "esc", and then write ":wq")
 
 
+Run the following command
+```
+cat $ORACLE_HOME/network/admin/tnsnames.ora
+```
+and make sure the output is the following. If not, edit the file.
+```
+ORCLCDB=localhost:1521/ORCLCDB
+ORCL= 
+(DESCRIPTION = 
+  (ADDRESS = (PROTOCOL = TCP)(HOST = 0.0.0.0)(PORT = 1521))
+  (CONNECT_DATA =
+    (SERVER = DEDICATED)
+    (SERVICE_NAME = ORCL)
+  )
+)
+```
+Run the following command
+```
+cat /opt/oracle/product/19c/dbhome_1/network/admin/listener.ora
+```
+and make sure the output is the following. If not, edit the file.
+```
+LISTENER = 
+(DESCRIPTION_LIST = 
+  (DESCRIPTION = 
+    (ADDRESS = (PROTOCOL = IPC)(KEY = EXTPROC1)) 
+    (ADDRESS = (PROTOCOL = TCP)(HOST = 0.0.0.0)(PORT = 1521)) 
+  ) 
+)
+
+DEDICATED_THROUGH_BROKER_LISTENER=ON
+DIAG_ADR_ENABLED = off
+```
+
+
 Connecting to the database as sys
 ---------------------------------
 
