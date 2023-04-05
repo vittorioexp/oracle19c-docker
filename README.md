@@ -116,19 +116,66 @@ The password for the SYS account can be changed via the `docker exec` command. N
 First run `docker ps` to get the container ID. Then run:
 `docker exec <container id> ./setPassword.sh <new password>`
 
-Getting a shell on the container
---------------------------------
-First run `docker ps` to get the container ID. Then run:
-`docker exec -it <container id> /bin/bash`
 
-Or as root:
-`docker exec -u 0 -it <container id> /bin/bash`
 
-Using SQLPlus within the container
-----------------------------------
+Connecting to the container as root
+-----------------------------------
 
-Once on the container (see above), connect to SQLPlus like so:
+
+Open a terminal.
+
+Find your oracle docker container ID, using:
 ```
-sqlplus /nolog
-connect sys/password@orcl as sysdba
+docker ps
 ```
+
+Supposing your ID is 22d7f94dfa3c, run:
+```
+docker exec -u 0 -it 22d7f94dfa3c /bin/bash
+```
+
+You are now connected to the container with privileges.
+
+
+Now you need to install vi:
+```
+yum install vi
+```
+We need to make the PASSWORD_VERSIONS parameter compatible with all versions, so run the following to edit sqlnet.ora:
+```
+vi $ORACLE_HOME/network/admin/sqlnet.ora
+```
+
+add the following line (press "i" to enter the editation mode):
+```
+SQLNET.ALLOWED_LOGON_VERSION_SERVER=10
+```
+save and exit (press "esc", and then write ":wq")
+
+
+
+To connect as admin (sysdba) to the oracle database, run:
+```
+sqlplus sys/password@orcl as sysdba
+```
+
+If successful, run the following to create a user and grant privileges:
+```
+CREATE USER SIB2000 IDENTIFIED BY password;
+GRANT ALL PRIVILEGES TO SIB2000;
+```
+
+
+Now open dbeaver and try to connect to the oracle database using the followings:
+```
+Host: localhost
+Port: 1521
+Database: orcl (Service Name)
+Authentication: Oracle Database Native
+Username: SIB2000
+Role: Normal
+Password: password
+```
+
+
+
