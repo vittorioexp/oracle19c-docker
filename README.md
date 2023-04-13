@@ -1,4 +1,5 @@
-# oracle19c-docker
+# OracleDB Docker Container
+
 A lightweight and configurable Oracle 19c docker image.
 
 Oracle has introduced the concept of container databases (CDB) and pluggable databases (PDB). Containers are used for multi-tenancy and contain pluggable databases. Pluggable databases are what you are probably used to, a self contained database that you connect to. By default, this image creates one CDB, and one PDB within that CDB.
