@@ -12,9 +12,9 @@ Alternatives
 ------------
 
 Before proceeding, you may want to consider the following resources:
-- `https://hub.docker.com/r/gvenzl/oracle-xe` (a 21c DB)
-- `https://hub.docker.com/r/gvenzl/oracle-free` (a 23c DB)
-- `https://github.com/oracle/docker-images/tree/main/OracleDatabase`
+- https://hub.docker.com/r/gvenzl/oracle-xe (a 21c DB)
+- https://hub.docker.com/r/gvenzl/oracle-free (a 23c DB)
+- https://github.com/oracle/docker-images/tree/main/OracleDatabase
 
 
 Before you begin
