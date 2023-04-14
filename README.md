@@ -1,4 +1,4 @@
-# OracleDB Docker Container
+# OracleDB 19c Docker Container
 
 A lightweight and configurable Oracle 19c docker image.
 
