@@ -8,6 +8,15 @@ Note that Oracle is shifting away from an SID and using service names instead. P
 
 Oracle have since improved their docker images and I have worked with Oracle on making the the memory configurable (see https://github.com/oracle/docker-images/issues/1575), so all we need now are simplified instructions.
 
+Alternatives
+------------
+
+Before proceeding, you may want to consider the following resources:
+- `https://hub.docker.com/r/gvenzl/oracle-xe` (a 21c DB)
+- `https://hub.docker.com/r/gvenzl/oracle-free` (a 23c DB)
+- `https://github.com/oracle/docker-images/tree/main/OracleDatabase`
+
+
 Before you begin
 ----------------
 
